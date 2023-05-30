@@ -1,0 +1,50 @@
+/*
+============================================================================================
+This file contains the Apostolis service definition. Please read them carefully
+Thank You --- @abhinowP
+============================================================================================
+*/
+
+syntax = "proto3";
+
+package gaia.apostolis.api;
+
+// The Apostolis service definition.
+service Apostolis {
+    /*
+    ============================================================================================
+    This service contains all the different methods that enable the user to implement the 
+    respective Strato cli commands. To add a new command simply follow the following syntax :
+
+        rpc <CommandNameInPascalCase> (ApostolisRequest) returns (ApostolisReply) {} 
+
+    where:
+        - ApostolisRequest returns parameters reuired to execute the respective command.
+        - ApostolisReply sends a response of the outcome of the execution of that command.
+
+    Remember to edit the "apostolis.go" file and also generate the protobuf files accordingly.    
+    
+    For more information on the following commands refer to the 
+    src/controlers/grpc/aposotlis/apostolis.go file. 
+    ============================================================================================
+    */ 
+    rpc Ignite (ApostolisRequest) returns (ApostolisReply) {} //runs the "strato ignite" command
+    rpc Liftoff (ApostolisRequest) returns (ApostolisReply) {} //runs the "strato liftoff" command
+    rpc Issues (ApostolisRequest) returns (ApostolisReply) {} //runs the "strato issues" command
+    rpc Destroy (ApostolisRequest) returns (ApostolisReply) {} //runs the "strato destroy" command
+    rpc Stats (ApostolisRequest) returns (ApostolisReply) {} //runs the "strato stats" command
+    rpc Land (ApostolisRequest) returns (ApostolisReply) {} //runs the "strato land" command
+    rpc Houston (ApostolisRequest) returns (ApostolisReply) {} //runs the "strato houston" command
+    rpc Completion (ApostolisRequest) returns (ApostolisReply) {} //runs the "strato completion" command
+}
+
+message ApostolisRequest {
+    string license_key = 1; //license key 
+    string params = 2;  //any extra parameters required while calling strato commands
+}
+
+message ApostolisReply {
+    int32 status = 1; //exitcode
+    string message = 2; //successful or unsuccessful
+    string data = 3; //output string
+}
